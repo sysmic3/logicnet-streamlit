@@ -7,6 +7,7 @@ import plotly.graph_objects as go
 validator_uids = [133,2,6,0,4,3,74,299,147,123,1,118]
 
 
+
 st.markdown(
     """
     **Logic Subnet: Artificial & Distributed Intelligent Brain.**
@@ -14,6 +15,24 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
+
+data = {
+    "Model": ["Llama 2", "Code Llama", "LogicNet", "Minerva", "", "Code Llama", "", "Minerva", "Minerva"],
+    "Size": ["7B", "7B", "7B", "8B", "", "34B", "", "62B", "540B"],
+    "GSM8k": ["11.8%", "10.5%", "36.4%", "16.2%", "", "29.6%", "", "52.4%", "58.8%"],
+    "OCW": ["3.7%", "4.4%", "7.7%", "7.7%", "", "7.0%", "", "12.0%", "17.6%"],
+    "MMLU-STEM": ["29.9%", "25.1%", "37.7%", "35.6%", "", "40.5%", "", "53.9%", "63.9%"],
+    "SAT": ["25%", "9.4%", "53.1%", "-", "", "40.6%", "", "-", "-"],
+    "MATH": ["3.2%", "4.5%", "18.0%", "14.1%", "", "12.2%", "", "27.6%", "33.6%"]
+}
+
+# Convert the dictionary to a DataFrame
+df = pd.DataFrame(data)
+
+# Display the DataFrame as a table in Streamlit
+st.table(df)
+
+
 validator_select = st.selectbox(
         "Select a validator",
         validator_uids,
