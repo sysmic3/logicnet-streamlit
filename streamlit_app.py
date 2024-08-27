@@ -36,7 +36,7 @@ st.table(df)
 validator_select = st.selectbox(
         "Select a validator",
         validator_uids,
-        index=validator_uids.index(3)
+        index=validator_uids.index(133)
 )
 validator_select = str(validator_select)
 
