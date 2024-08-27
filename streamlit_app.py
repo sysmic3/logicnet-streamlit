@@ -4,7 +4,7 @@ import plotly.express as px
 import pandas as pd
 import plotly.graph_objects as go
 
-validator_uids = [3]
+validator_uids = [133,2,6,0,4,3,74,299,147,123,1,118]
 
 
 st.markdown(
