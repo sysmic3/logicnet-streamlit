@@ -118,6 +118,7 @@ for category in category_distribution.keys():
     st.plotly_chart(fig)
 
 for uid, info in response["miner_information"].items():
+    info["accuracy"] = [x["correctness"] for x in info.get("reward_logs",[])]
     info.pop("reward_logs", None)
 pd_data = pd.DataFrame(response["miner_information"])
 
@@ -129,7 +130,7 @@ st.markdown(
 )
 st.dataframe(pd_data.T,
     width=1500,
-    column_order = ("category", "scores", "epoch_volume", "reward_scale", "rate_limit"),
+    column_order = ("category", "scores", "epoch_volume", "accuracy", "reward_scale", "rate_limit"),
     column_config = {
         "scores": st.column_config.ListColumn(
             "Scores",
@@ -146,6 +147,10 @@ st.dataframe(pd_data.T,
         ),
         "reward_scale": st.column_config.NumberColumn(
             "Reward Scale"
+        ),
+        "accuracy": st.column_config.ListColumn(
+            "Accuracy",
+            width ="large"
         ),
         "rate_limit": st.column_config.NumberColumn(
             "Rate Limit"
