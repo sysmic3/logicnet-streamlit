@@ -12,7 +12,7 @@ st.set_page_config(page_title="LogicNet Studio", layout="wide")
 st.markdown("<h1 style='text-align: center;'>LogicNet Statistics</h1>", unsafe_allow_html=True)
 st.markdown(
     """
-    <p style='text-align: center;'>LogicNet is a Bittensor-powered network that drives the development of AI models capable of complex 
+    <p style='text-align: left;'>LogicNet is a Bittensor-powered network that drives the development of AI models capable of complex 
     mathematical problem-solving and detailed data analysis. Below, you will find statistics of the network, 
     its performance, and comparisons to other models.</p>
     """,
