@@ -7,6 +7,7 @@ from datetime import datetime
 
 validator_uids = [133,2,6,0,4,3,74,299,147,123,1,118]
 
+st.set_page_config(page_title="LogicNet Studio", layout="wide")
 
 
 st.markdown(
@@ -57,7 +58,7 @@ if validator_select in st.session_state.timeline_stats:
 
     ### Plot acc of top miner chart
     df = pd.DataFrame(response_timeline["average_top_accuracy"])
-    df['updated_time'] = df['updated_time'].apply(lambda x: datetime.utcfromtimestamp(x))
+    df['updated_time'] = df['updated_time'].apply(lambda x: datetime.utcfromtimestamp(x).replace(second=0, microsecond=0))
 
     fig = px.line(df, x='updated_time', y='mean_accuracy', title='Average Accuracy', markers=True)
 
@@ -115,6 +116,9 @@ for category in category_distribution.keys():
         xaxis=dict(type="category"),
     )
     st.plotly_chart(fig)
+
+for uid, info in response["miner_information"].items():
+    info.pop("reward_logs", None)
 pd_data = pd.DataFrame(response["miner_information"])
 
 st.markdown(
@@ -123,4 +127,28 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
-st.dataframe(pd_data.T)
+st.dataframe(pd_data.T,
+    width=1500,
+    column_order = ("category", "scores", "epoch_volume", "reward_scale", "rate_limit"),
+    column_config = {
+        "scores": st.column_config.ListColumn(
+            "Scores",
+            width ="large"
+        ),
+        "category": st.column_config.TextColumn(
+            "Category"
+        ),
+        "epoch_volume": st.column_config.ProgressColumn(
+            "Volume",
+            format="%f",
+            min_value=0,
+            max_value=512,
+        ),
+        "reward_scale": st.column_config.NumberColumn(
+            "Reward Scale"
+        ),
+        "rate_limit": st.column_config.NumberColumn(
+            "Rate Limit"
+        )
+    })
+
