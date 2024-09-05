@@ -47,30 +47,30 @@ if f"stats" not in st.session_state:
     st.session_state.stats = response
 
 if f"timeline_stats" not in st.session_state:
-    response_timeline = requests.get("https://logicnet.aitprotocol.ai/proxy_client/get_miner_statistics")    
+    response_timeline = requests.get("https://logicnet.aitprotocol.ai/proxy_client/get_miner_statistics")
     response_timeline = response_timeline.json()
     st.session_state.timeline_stats = response_timeline
-    print(response_timeline)
-
 response = st.session_state.stats[validator_select]
-response_timeline = st.session_state.timeline_stats[validator_select]
 
-### Plot acc of top miner chart
-df = pd.DataFrame(response_timeline["average_top_accuracy"])
-df['updated_time'] = df['updated_time'].apply(lambda x: datetime.utcfromtimestamp(x))
+if validator_select in st.session_state.timeline_stats:
+    response_timeline = st.session_state.timeline_stats[validator_select]
 
-fig = px.line(df, x='updated_time', y='mean_accuracy', title='Average Accuracy', markers=True)
+    ### Plot acc of top miner chart
+    df = pd.DataFrame(response_timeline["average_top_accuracy"])
+    df['updated_time'] = df['updated_time'].apply(lambda x: datetime.utcfromtimestamp(x))
 
-fig.update_layout(
-    xaxis_title='Date',
-    yaxis_title='Accuracy',
-    hovermode='x',
-    plot_bgcolor='rgba(0,0,0,0)',
-    paper_bgcolor='rgba(0,0,0,0)',
-    xaxis=dict(showgrid=False),
-    yaxis=dict(showgrid=True, gridcolor='LightGrey')
-)
-st.plotly_chart(fig)
+    fig = px.line(df, x='updated_time', y='mean_accuracy', title='Average Accuracy', markers=True)
+
+    fig.update_layout(
+        xaxis_title='Date',
+        yaxis_title='Accuracy',
+        hovermode='x',
+        plot_bgcolor='rgba(0,0,0,0)',
+        paper_bgcolor='rgba(0,0,0,0)',
+        xaxis=dict(showgrid=False),
+        yaxis=dict(showgrid=True, gridcolor='LightGrey', range=[0, 1]),
+    )
+    st.plotly_chart(fig)
 
 
 category_distribution = {}
