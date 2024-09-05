@@ -9,13 +9,14 @@ validator_uids = [133,2,6,0,4,3,74,299,147,123,1,118]
 
 st.set_page_config(page_title="LogicNet Studio", layout="wide")
 
-
+st.markdown("<h1 style='text-align: center;'>LogicNet Statistics</h1>", unsafe_allow_html=True)
 st.markdown(
     """
-    **Logic Subnet: Artificial & Distributed Intelligent Brain.**
-    Below is the statistics of the Logic Subnet.
+    <p style='text-align: center;'>LogicNet is a Bittensor-powered network that drives the development of AI models capable of complex 
+    mathematical problem-solving and detailed data analysis. Below, you will find statistics of the network, 
+    its performance, and comparisons to other models.</p>
     """,
-    unsafe_allow_html=True,
+    unsafe_allow_html=True
 )
 
 data = {
@@ -33,6 +34,12 @@ df = pd.DataFrame(data)
 
 # Display the DataFrame as a table in Streamlit
 st.table(df)
+st.markdown(
+    """
+    <p style='text-align: center;'>Figure 1: Comparison of LogicNet and other models on well-established benchmarks.</p>
+    """, 
+    unsafe_allow_html=True
+)
 
 
 validator_select = st.selectbox(
