@@ -29,11 +29,9 @@ data = {
     "MATH": ["3.2%", "4.5%", "18.0%", "14.1%", "", "12.2%", "", "27.6%", "33.6%"]
 }
 
-# Convert the dictionary to a DataFrame
 df = pd.DataFrame(data)
-
-# Display the DataFrame as a table in Streamlit
 st.table(df)
+
 st.markdown(
     """
     <p style='text-align: center;'>Figure 1: Comparison of LogicNet and other models on well-established benchmarks.</p>
@@ -86,12 +84,12 @@ for uid, info in response["miner_information"].items():
     category = info["category"]
     category_distribution[category] = category_distribution.get(category, 0) + 1
 
-fig = px.pie(
-    values=list(category_distribution.values()),
-    names=list(category_distribution.keys()),
-    title="Category Distribution",
-)
-st.plotly_chart(fig)
+# fig = px.pie(
+#     values=list(category_distribution.values()),
+#     names=list(category_distribution.keys()),
+#     title="Category Distribution",
+# )
+# st.plotly_chart(fig)
 
 transformed_dict = []
 for k, v in response['miner_information'].items():
